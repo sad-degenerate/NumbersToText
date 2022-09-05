@@ -16,7 +16,7 @@ namespace NumbersToText.LIB
 
             var absNumber = Math.Abs(number);
 
-            var result = Billions(builder, number);
+            var result = Billions(builder, absNumber);
             
             return result.ToString();
         }
@@ -95,19 +95,19 @@ namespace NumbersToText.LIB
 
             if (lastWord.EndsWith("один"))
             {
-                builder.Remove(builder.Length - 5, builder.Length);
+                builder.Remove(builder.Length - 5, 5);
                 builder.Append("одна ");
                 builder.Append("тысяча ");
             }
-            else if (lastWord.EndsWith("два "))
+            else if (lastWord.EndsWith("два"))
             {
-                builder.Remove(builder.Length - 4, builder.Length);
+                builder.Remove(builder.Length - 4, 4);
                 builder.Append("две ");
                 builder.Append("тысячи ");
             }
-            else if (lastWord.EndsWith("три "))
+            else if (lastWord.EndsWith("три"))
                 builder.Append("тысячи ");
-            else if (lastWord.EndsWith("четыре "))
+            else if (lastWord.EndsWith("четыре"))
                 builder.Append("тысячи ");
             else
                 builder.Append("тысяч ");
@@ -128,11 +128,11 @@ namespace NumbersToText.LIB
 
             if (lastWord.EndsWith("один"))
                 builder.Append("миллион ");
-            else if (lastWord.EndsWith("два "))
+            else if (lastWord.EndsWith("два"))
                 builder.Append("миллиона ");
-            else if (lastWord.EndsWith("три "))
+            else if (lastWord.EndsWith("три"))
                 builder.Append("миллиона ");
-            else if (lastWord.EndsWith("четыре "))
+            else if (lastWord.EndsWith("четыре"))
                 builder.Append("миллиона ");
             else
                 builder.Append("миллионов ");
@@ -153,11 +153,11 @@ namespace NumbersToText.LIB
 
             if (lastWord.EndsWith("один"))
                 builder.Append("миллиард ");
-            else if (lastWord.EndsWith("два "))
+            else if (lastWord.EndsWith("два"))
                 builder.Append("миллиарда ");
-            else if (lastWord.EndsWith("три "))
+            else if (lastWord.EndsWith("три"))
                 builder.Append("миллиарда ");
-            else if (lastWord.EndsWith("четыре "))
+            else if (lastWord.EndsWith("четыре"))
                 builder.Append("миллиарда ");
             else
                 builder.Append("миллиардов ");
