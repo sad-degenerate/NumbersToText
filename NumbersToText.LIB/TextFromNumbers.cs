@@ -2,7 +2,7 @@
 {
     public class TextFromNumbers
     {
-        private List<string> _numberInWords;
+        private readonly List<string> _numberInWords;
 
         public TextFromNumbers()
         {
@@ -36,52 +36,52 @@
 
             _numberInWords.Add(hundreds switch
             {
-                1 => "сто ",
-                2 => "двести ",
-                3 => "триста ",
-                4 => "четыреста ",
-                5 => "пятьсот ",
-                6 => "шестьсот ",
-                7 => "семьсот ",
-                8 => "восемьсот ",
-                9 => "девятьсот ",
+                1 => "сто",
+                2 => "двести",
+                3 => "триста",
+                4 => "четыреста",
+                5 => "пятьсот",
+                6 => "шестьсот",
+                7 => "семьсот",
+                8 => "восемьсот",
+                9 => "девятьсот",
                 _ => ""
             });
 
             _numberInWords.Add((number / 10 % 10) switch
             {
-                2 => "двадцать ",
-                3 => "тридцать ",
-                4 => "сорок ",
-                5 => "пятьдесят ",
-                6 => "шестьдесят ",
-                7 => "семьдесят ",
-                8 => "восемьдесят ",
-                9 => "девяносто ",
+                2 => "двадцать",
+                3 => "тридцать",
+                4 => "сорок",
+                5 => "пятьдесят",
+                6 => "шестьдесят",
+                7 => "семьдесят",
+                8 => "восемьдесят",
+                9 => "девяносто",
                 _ => ""
             });
 
             _numberInWords.Add((number >= 20 ? number % 10 : number % 20) switch
             {
-                1 => "один ",
-                2 => "два ",
-                3 => "три ",
-                4 => "четыре ",
-                5 => "пять ",
-                6 => "шесть ",
-                7 => "семь ",
-                8 => "восемь ",
-                9 => "девять ",
-                10 => "десять ",
-                11 => "одиннадцать ",
-                12 => "двенадцать ",
-                13 => "тринадцать ",
-                14 => "четырнадцать ",
-                15 => "пятнадцать ",
-                16 => "шестнадцать ",
-                17 => "семнадцать ",
-                18 => "восемнадцать ",
-                19 => "девятнадцать ",
+                1 => "один",
+                2 => "два",
+                3 => "три",
+                4 => "четыре",
+                5 => "пять",
+                6 => "шесть",
+                7 => "семь",
+                8 => "восемь",
+                9 => "девять",
+                10 => "десять",
+                11 => "одиннадцать",
+                12 => "двенадцать",
+                13 => "тринадцать",
+                14 => "четырнадцать",
+                15 => "пятнадцать",
+                16 => "шестнадцать",
+                17 => "семнадцать",
+                18 => "восемнадцать",
+                19 => "девятнадцать",
                 _ => ""
             });
         }
@@ -130,15 +130,15 @@
             var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
-                _numberInWords.Add("миллион ");
+                _numberInWords.Add("миллион");
             else if (lastWord.EndsWith("два"))
-                _numberInWords.Add("миллиона ");
+                _numberInWords.Add("миллиона");
             else if (lastWord.EndsWith("три"))
-                _numberInWords.Add("миллиона ");
+                _numberInWords.Add("миллиона");
             else if (lastWord.EndsWith("четыре"))
-                _numberInWords.Add("миллиона ");
+                _numberInWords.Add("миллиона");
             else
-                _numberInWords.Add("миллионов ");
+                _numberInWords.Add("миллионов");
 
             Thousands(number);
         }
@@ -155,15 +155,15 @@
             var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
-                _numberInWords.Add("миллиард ");
+                _numberInWords.Add("миллиард");
             else if (lastWord.EndsWith("два"))
-                _numberInWords.Add("миллиарда ");
+                _numberInWords.Add("миллиарда");
             else if (lastWord.EndsWith("три"))
-                _numberInWords.Add("миллиарда ");
+                _numberInWords.Add("миллиарда");
             else if (lastWord.EndsWith("четыре"))
-                _numberInWords.Add("миллиарда ");
+                _numberInWords.Add("миллиарда");
             else
-                _numberInWords.Add("миллиардов ");
+                _numberInWords.Add("миллиардов");
 
             Millions(number);
         }
