@@ -1,78 +1,56 @@
 ﻿namespace NumbersToText.LIB
 {
-    public class NumbersToTextArrays
+    public static class NumbersToTextArrays
     {
-        private readonly string[] _houndreds;
-        private readonly string[] _tens;
-        private readonly string[] _ones;
-
-        public NumbersToTextArrays()
+        public static string[] Houndreds { get; } = new string[]
         {
-            _houndreds = new string[]
-            {
-                "",
-                "сто",
-                "двести",
-                "триста",
-                "четыреста",
-                "пятьсот",
-                "шестьсот",
-                "семьсот",
-                "восемьсот",
-                "девятьсот",
-            };
+            "",
+            "сто",
+            "двести",
+            "триста",
+            "четыреста",
+            "пятьсот",
+            "шестьсот",
+            "семьсот",
+            "восемьсот",
+            "девятьсот",
+        };
 
-            _tens = new string[]
-            {
-                "",
-                "двадцать",
-                "тридцать",
-                "сорок",
-                "пятьдесят",
-                "шестьдесят",
-                "семьдесят",
-                "восемьдесят",
-                "девяносто",
-            };
-
-            _ones = new string[]
-            {
-                "",
-                "один",
-                "два",
-                "три",
-                "четыре",
-                "пять",
-                "шесть",
-                "семь",
-                "восемь",
-                "девять",
-                "десять",
-                "одиннадцать",
-                "двенадцать",
-                "тринадцать",
-                "четырнадцать",
-                "пятнадцать",
-                "шестнадцать",
-                "семнадцать",
-                "восемнадцать",
-                "девятнадцать",
-            };
-        }
-
-        public string[] GetHoundreds()
+        public static string[] Tens { get; } = new string[]
         {
-            return _houndreds;
-        }
+            "",
+            "двадцать",
+            "тридцать",
+            "сорок",
+            "пятьдесят",
+            "шестьдесят",
+            "семьдесят",
+            "восемьдесят",
+            "девяносто",
+        };
 
-        public string[] GetTens()
+        public static string[] Ones { get; } = new string[]
         {
-            return _tens;
-        }
-
-        public string[] GetOnes()
-        {
-            return _ones;
-        }
+            "",
+            "один",
+            "два",
+            "три",
+            "четыре",
+            "пять",
+            "шесть",
+            "семь",
+            "восемь",
+            "девять",
+            "десять",
+            "одиннадцать",
+            "двенадцать",
+            "тринадцать",
+            "четырнадцать",
+            "пятнадцать",
+            "шестнадцать",
+            "семнадцать",
+            "восемнадцать",
+            "девятнадцать",
+        };
     }
 }

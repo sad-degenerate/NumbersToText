@@ -31,18 +31,16 @@
 
         private void TensAndHoundreds(long number)
         {
-            var arrays = new NumbersToTextArrays();
-
             var hundreds = (number / 100 % 100);
             if (hundreds > 10)
                 hundreds %= 10;
 
-            _numberInWords.Add(arrays.GetHoundreds()[hundreds]);
-            _numberInWords.Add(arrays.GetTens()[number / 10 % 10]);
+            _numberInWords.Add(NumbersToTextArrays.Houndreds[hundreds]);
+            _numberInWords.Add(NumbersToTextArrays.Tens[number / 10 % 10]);
             if (number % 100 >= 20)
-                _numberInWords.Add(arrays.GetOnes()[number % 10]);
+                _numberInWords.Add(NumbersToTextArrays.Ones[number % 10]);
             else
-                _numberInWords.Add(arrays.GetOnes()[number % 20]); 
+                _numberInWords.Add(NumbersToTextArrays.Ones[number % 20]);
         }
 
         private void Thousands(long number)
