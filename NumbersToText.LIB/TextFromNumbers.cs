@@ -23,7 +23,8 @@
 
             var resultString = string.Empty;
             foreach (var word in _numberInWords)
-                resultString += $"{word} ";
+                if (word != string.Empty)
+                    resultString += $"{word} ";
 
             return resultString;
         }
