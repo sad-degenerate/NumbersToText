@@ -2,15 +2,17 @@
 {
     public class TextFromNumbers
     {
-        private readonly List<string> _numberInWords;
+        private List<string> _numberInWords;
 
-        public TextFromNumbers()
+        public TextFromNumbers() 
         {
             _numberInWords = new List<string>();
         }
 
         public string Make(long number)
         {
+            _numberInWords = new List<string>();
+
             if (number == 0)
                 return "ноль";
 
@@ -24,6 +26,11 @@
             Thousands(number / 1000 % 1000);
             TensAndHoundreds(number % 1000);
 
+            return CreateResultString();
+        }
+
+        private string CreateResultString()
+        {
             var resultString = string.Empty;
             foreach (var word in _numberInWords)
                 if (string.IsNullOrWhiteSpace(word) == false)
