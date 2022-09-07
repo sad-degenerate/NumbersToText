@@ -1,33 +1,40 @@
-﻿using System.Text;
-
-namespace NumbersToText.LIB
+﻿namespace NumbersToText.LIB
 {
-    public static class TextFromNumbers
+    public class TextFromNumbers
     {
-        public static string Make(long number)
+        private List<string> _numberInWords;
+
+        public TextFromNumbers()
+        {
+            _numberInWords = new List<string>();
+        }
+
+        public string Make(long number)
         {
             if (number == 0)
                 return "ноль";
 
-            var builder = new StringBuilder();
-
             if (number < 0)
-                builder.Append("минус ");
+                _numberInWords.Add("минус");
 
-            var absNumber = Math.Abs(number);
+            number = Math.Abs(number);
 
-            var result = Billions(builder, absNumber);
-            
-            return result.ToString();
+            Billions(number);
+
+            var resultString = string.Empty;
+            foreach (var word in _numberInWords)
+                resultString += $"{word} ";
+
+            return resultString;
         }
 
-        private static StringBuilder TensAndHoundreds(StringBuilder builder, long number)
+        private void TensAndHoundreds(long number)
         {
             var hundreds = (number / 100 % 100);
             if (hundreds > 10)
                 hundreds %= 10;
 
-            builder.Append(hundreds switch
+            _numberInWords.Add(hundreds switch
             {
                 1 => "сто ",
                 2 => "двести ",
@@ -41,7 +48,7 @@ namespace NumbersToText.LIB
                 _ => ""
             });
 
-            builder.Append((number / 10 % 10) switch
+            _numberInWords.Add((number / 10 % 10) switch
             {
                 2 => "двадцать ",
                 3 => "тридцать ",
@@ -54,7 +61,7 @@ namespace NumbersToText.LIB
                 _ => ""
             });
 
-            builder.Append((number >= 20 ? number % 10 : number % 20) switch
+            _numberInWords.Add((number >= 20 ? number % 10 : number % 20) switch
             {
                 1 => "один ",
                 2 => "два ",
@@ -77,92 +84,88 @@ namespace NumbersToText.LIB
                 19 => "девятнадцать ",
                 _ => ""
             });
-
-            return builder;
         }
 
-        private static StringBuilder Thousands(StringBuilder builder, long number)
+        private void Thousands(long number)
         {
             if (number / 1000 == 0)
-                return TensAndHoundreds(builder, number);
-
-            builder = TensAndHoundreds(builder, number / 1000);
-            var words = builder.ToString().Split(' ');
-            var lastWord = words.Last();
-            if (lastWord == "")
-                lastWord = words[words.Length - 2];
-
-
-            if (lastWord.EndsWith("один"))
             {
-                builder.Remove(builder.Length - 5, 5);
-                builder.Append("одна ");
-                builder.Append("тысяча ");
+                TensAndHoundreds(number);
+                return;
             }
-            else if (lastWord.EndsWith("два"))
+
+            TensAndHoundreds(number / 1000);
+            var lastWord = _numberInWords.Last();
+
+
+            if (lastWord.Contains("один"))
             {
-                builder.Remove(builder.Length - 4, 4);
-                builder.Append("две ");
-                builder.Append("тысячи ");
+                _numberInWords[^1] = _numberInWords.Last().Replace("один", "одна");
+                _numberInWords.Add("тысяча");
+            }
+            else if (lastWord.Contains("два"))
+            {
+                _numberInWords[^1] = _numberInWords.Last().Replace("два", "две");
+                _numberInWords.Add("тысячи");
             }
             else if (lastWord.EndsWith("три"))
-                builder.Append("тысячи ");
+                _numberInWords.Add("тысячи");
             else if (lastWord.EndsWith("четыре"))
-                builder.Append("тысячи ");
+                _numberInWords.Add("тысячи");
             else
-                builder.Append("тысяч ");
+                _numberInWords.Add("тысяч");
 
-            return TensAndHoundreds(builder, number);
+            TensAndHoundreds(number);
         }
 
-        private static StringBuilder Millions(StringBuilder builder, long number)
+        private void Millions(long number)
         {
             if (number / 1000000 == 0)
-                return Thousands(builder, number);
+            {
+                Thousands(number);
+                return;
+            } 
 
-            builder = TensAndHoundreds(builder, number / 1000000);
-            var words = builder.ToString().Split(' ');
-            var lastWord = words.Last();
-            if (lastWord == "")
-                lastWord = words[words.Length - 2];
+            TensAndHoundreds(number / 1000000);
+            var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
-                builder.Append("миллион ");
+                _numberInWords.Add("миллион ");
             else if (lastWord.EndsWith("два"))
-                builder.Append("миллиона ");
+                _numberInWords.Add("миллиона ");
             else if (lastWord.EndsWith("три"))
-                builder.Append("миллиона ");
+                _numberInWords.Add("миллиона ");
             else if (lastWord.EndsWith("четыре"))
-                builder.Append("миллиона ");
+                _numberInWords.Add("миллиона ");
             else
-                builder.Append("миллионов ");
+                _numberInWords.Add("миллионов ");
 
-            return Thousands(builder, number);
+            Thousands(number);
         }
 
-        private static StringBuilder Billions(StringBuilder builder, long number)
+        private void Billions(long number)
         {
             if (number / 1000000000 == 0)
-                return Millions(builder, number);
+            {
+                Millions(number);
+                return;
+            }
 
-            builder = TensAndHoundreds(builder, number / 1000000000);
-            var words = builder.ToString().Split(' ');
-            var lastWord = words.Last();
-            if (lastWord == "")
-                lastWord = words[words.Length - 2];
+            TensAndHoundreds(number / 1000000000);
+            var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
-                builder.Append("миллиард ");
+                _numberInWords.Add("миллиард ");
             else if (lastWord.EndsWith("два"))
-                builder.Append("миллиарда ");
+                _numberInWords.Add("миллиарда ");
             else if (lastWord.EndsWith("три"))
-                builder.Append("миллиарда ");
+                _numberInWords.Add("миллиарда ");
             else if (lastWord.EndsWith("четыре"))
-                builder.Append("миллиарда ");
+                _numberInWords.Add("миллиарда ");
             else
-                builder.Append("миллиардов ");
+                _numberInWords.Add("миллиардов ");
 
-            return Millions(builder, number);
+            Millions(number);
         }
     }
 }

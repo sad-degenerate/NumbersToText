@@ -10,7 +10,8 @@ while (true)
     if (long.TryParse(input, out long number) == false)
         break;
 
-    var text = TextFromNumbers.Make(number);
+    var textFromNumbers = new TextFromNumbers();
+    var text = textFromNumbers.Make(number);
 
     Console.WriteLine("Вы ввели это число: " + text + "\n");
 }
