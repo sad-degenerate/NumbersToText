@@ -62,7 +62,7 @@
                 _ => ""
             });
 
-            _numberInWords.Add((number >= 20 ? number % 10 : number % 20) switch
+            _numberInWords.Add((number / 10 % 10 >= 20 ? number % 10 : number % 20) switch
             {
                 1 => "один",
                 2 => "два",
@@ -99,7 +99,7 @@
             var lastWord = _numberInWords.Last();
 
 
-            if (lastWord.Contains("один"))
+            if (lastWord.Contains("один") && lastWord != "одиннадцать")
             {
                 _numberInWords[^1] = _numberInWords.Last().Replace("один", "одна");
                 _numberInWords.Add("тысяча");
