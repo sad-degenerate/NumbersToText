@@ -5,7 +5,7 @@ Console.WriteLine("Вводите любые числа от 999 999 999 999 д�
 
 while (true)
 {
-    Console.WriteLine("Введите число: ");
+    Console.Write("Введите число: ");
     var input = Console.ReadLine();
     if (long.TryParse(input, out long number) == false)
         break;

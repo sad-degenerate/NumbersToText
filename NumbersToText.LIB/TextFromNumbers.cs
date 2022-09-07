@@ -19,7 +19,10 @@
 
             number = Math.Abs(number);
 
-            Billions(number);
+            Billions(number / 1000000000);
+            Millions(number / 1000000 % 1000);
+            Thousands(number / 1000 % 1000);
+            TensAndHoundreds(number % 1000);
 
             var resultString = string.Empty;
             foreach (var word in _numberInWords)
@@ -31,12 +34,8 @@
 
         private void TensAndHoundreds(long number)
         {
-            var hundreds = (number / 100 % 100);
-            if (hundreds > 10)
-                hundreds %= 10;
-
-            _numberInWords.Add(NumbersToTextArrays.Houndreds[hundreds]);
-            _numberInWords.Add(NumbersToTextArrays.Tens[number / 10 % 10]);
+            _numberInWords.Add(NumbersToTextArrays.Houndreds[number / 100]);
+            _numberInWords.Add(NumbersToTextArrays.Tens[number % 100 / 10]);
             if (number % 100 >= 20)
                 _numberInWords.Add(NumbersToTextArrays.Ones[number % 10]);
             else
@@ -45,15 +44,11 @@
 
         private void Thousands(long number)
         {
-            if (number / 1000 == 0)
-            {
-                TensAndHoundreds(number);
+            if (number == 0)
                 return;
-            }
 
-            TensAndHoundreds(number / 1000);
+            TensAndHoundreds(number);
             var lastWord = _numberInWords.Last();
-
 
             if (lastWord.Contains("один") && lastWord != "одиннадцать")
             {
@@ -71,19 +66,14 @@
                 _numberInWords.Add("тысячи");
             else
                 _numberInWords.Add("тысяч");
-
-            TensAndHoundreds(number);
         }
 
         private void Millions(long number)
         {
-            if (number / 1000000 == 0)
-            {
-                Thousands(number);
+            if (number == 0)
                 return;
-            } 
 
-            TensAndHoundreds(number / 1000000);
+            TensAndHoundreds(number);
             var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
@@ -96,19 +86,14 @@
                 _numberInWords.Add("миллиона");
             else
                 _numberInWords.Add("миллионов");
-
-            Thousands(number);
         }
 
         private void Billions(long number)
         {
-            if (number / 1000000000 == 0)
-            {
-                Millions(number);
+            if (number == 0)
                 return;
-            }
 
-            TensAndHoundreds(number / 1000000000);
+            TensAndHoundreds(number);
             var lastWord = _numberInWords.Last();
 
             if (lastWord.EndsWith("один"))
@@ -121,8 +106,6 @@
                 _numberInWords.Add("миллиарда");
             else
                 _numberInWords.Add("миллиардов");
-
-            Millions(number);
         }
     }
 }

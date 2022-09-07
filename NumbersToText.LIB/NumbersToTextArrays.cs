@@ -19,6 +19,7 @@
         public static string[] Tens { get; } = new string[]
         {
             "",
+            "",
             "двадцать",
             "тридцать",
             "сорок",
