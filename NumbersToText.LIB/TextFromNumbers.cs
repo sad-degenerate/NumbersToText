@@ -62,7 +62,7 @@
                 _ => ""
             });
 
-            _numberInWords.Add((number / 10 % 10 >= 20 ? number % 10 : number % 20) switch
+            _numberInWords.Add((number % 100 >= 20 ? number % 10 : number % 20) switch
             {
                 1 => "один",
                 2 => "два",
