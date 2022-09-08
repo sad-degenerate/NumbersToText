@@ -2,16 +2,11 @@
 {
     public class TextFromNumbers
     {
-        private List<string> _numberInWords;
-
-        public TextFromNumbers() 
-        {
-            _numberInWords = new List<string>();
-        }
+        private readonly List<string> _numberInWords = new();
 
         public string Make(long number)
         {
-            _numberInWords = new List<string>();
+            _numberInWords.Clear();
 
             if (number == 0)
                 return "ноль";
@@ -21,10 +16,10 @@
 
             number = Math.Abs(number);
 
-            Billions(number / 1000000000);
-            Millions(number / 1000000 % 1000);
-            Thousands(number / 1000 % 1000);
-            TensAndHoundreds(number % 1000);
+            Billions(number / 1_000_000_000);
+            Millions(number / 1_000_000 % 1_000);
+            Thousands(number / 1_000 % 1_000);
+            TensAndHoundreds(number % 1_000);
 
             return CreateResultString();
         }
@@ -55,24 +50,8 @@
                 return;
 
             TensAndHoundreds(number);
-            var lastWord = _numberInWords.Last();
 
-            if (lastWord.Contains("один") && lastWord != "одиннадцать")
-            {
-                _numberInWords[^1] = _numberInWords.Last().Replace("один", "одна");
-                _numberInWords.Add("тысяча");
-            }
-            else if (lastWord.Contains("два"))
-            {
-                _numberInWords[^1] = _numberInWords.Last().Replace("два", "две");
-                _numberInWords.Add("тысячи");
-            }
-            else if (lastWord.EndsWith("три"))
-                _numberInWords.Add("тысячи");
-            else if (lastWord.EndsWith("четыре"))
-                _numberInWords.Add("тысячи");
-            else
-                _numberInWords.Add("тысяч");
+            AddRank(NumbersToTextArrays.ThousandCases, (int)number % 100);
         }
 
         private void Millions(long number)
@@ -81,18 +60,8 @@
                 return;
 
             TensAndHoundreds(number);
-            var lastWord = _numberInWords.Last();
 
-            if (lastWord.EndsWith("один"))
-                _numberInWords.Add("миллион");
-            else if (lastWord.EndsWith("два"))
-                _numberInWords.Add("миллиона");
-            else if (lastWord.EndsWith("три"))
-                _numberInWords.Add("миллиона");
-            else if (lastWord.EndsWith("четыре"))
-                _numberInWords.Add("миллиона");
-            else
-                _numberInWords.Add("миллионов");
+            AddRank(NumbersToTextArrays.MillionCases, (int)number % 100);
         }
 
         private void Billions(long number)
@@ -101,18 +70,20 @@
                 return;
 
             TensAndHoundreds(number);
-            var lastWord = _numberInWords.Last();
 
-            if (lastWord.EndsWith("один"))
-                _numberInWords.Add("миллиард");
-            else if (lastWord.EndsWith("два"))
-                _numberInWords.Add("миллиарда");
-            else if (lastWord.EndsWith("три"))
-                _numberInWords.Add("миллиарда");
-            else if (lastWord.EndsWith("четыре"))
-                _numberInWords.Add("миллиарда");
-            else
-                _numberInWords.Add("миллиардов");
+            AddRank(NumbersToTextArrays.BillionCases, (int)number % 100);
+        }
+
+        private void AddRank(Dictionary<NumberRange, string> rankCases, int tens)
+        {
+            foreach (var _case in rankCases)
+            {
+                if (_case.Key.IsInRange(tens))
+                {
+                    _numberInWords.Add(_case.Value);
+                    break;
+                }
+            }
         }
     }
 }
