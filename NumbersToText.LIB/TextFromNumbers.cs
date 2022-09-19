@@ -9,10 +9,14 @@
             _numberInWords.Clear();
 
             if (number == 0)
+            {
                 return "ноль";
+            }
 
             if (number < 0)
+            {
                 _numberInWords.Add("минус");
+            }
 
             number = Math.Abs(number);
 
@@ -28,9 +32,15 @@
         {
             var resultString = string.Empty;
             foreach (var word in _numberInWords)
+            {
                 if (string.IsNullOrWhiteSpace(word) == false)
-                    resultString += $"{word} ";
-
+                {
+                    if (resultString.Length != 0)
+                        resultString += " ";
+                    resultString += word;
+                }
+            }
+                    
             return resultString;
         }
 
@@ -38,16 +48,23 @@
         {
             _numberInWords.Add(NumbersToTextArrays.Houndreds[number / 100]);
             _numberInWords.Add(NumbersToTextArrays.Tens[number % 100 / 10]);
+
             if (number % 100 >= 20)
+            {
                 _numberInWords.Add(NumbersToTextArrays.Ones[number % 10]);
+            }
             else
+            {
                 _numberInWords.Add(NumbersToTextArrays.Ones[number % 20]);
+            }
         }
 
         private void Thousands(long number)
         {
             if (number == 0)
+            {
                 return;
+            }
 
             TensAndHoundreds(number);
 
@@ -57,7 +74,9 @@
         private void Millions(long number)
         {
             if (number == 0)
+            {
                 return;
+            }
 
             TensAndHoundreds(number);
 
@@ -67,7 +86,9 @@
         private void Billions(long number)
         {
             if (number == 0)
+            {
                 return;
+            }    
 
             TensAndHoundreds(number);
 
