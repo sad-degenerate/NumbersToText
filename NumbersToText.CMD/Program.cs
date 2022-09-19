@@ -1,4 +1,4 @@
-﻿using NumbersToText.LIB;
+﻿using NumbersToText;
 
 Console.WriteLine("Добро пожаловать!");
 Console.WriteLine("Вводите любые числа от 999 999 999 999 до - 999 999 999 999 (чтобы выйти введите НЕ число)\n");
