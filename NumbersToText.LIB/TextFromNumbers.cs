@@ -35,9 +35,11 @@
             {
                 if (string.IsNullOrWhiteSpace(word) == false)
                 {
-                    if (resultString.Length != 0)
-                        resultString += " ";
                     resultString += word;
+                    if (word != _numberInWords.Last())
+                    {
+                        resultString += " ";
+                    }
                 }
             }
                     
