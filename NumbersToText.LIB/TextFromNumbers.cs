@@ -35,7 +35,7 @@
             {
                 if (string.IsNullOrWhiteSpace(_numberInWords[i]) == false)
                 {
-                    if (i != 0)
+                    if (i != 0 && string.IsNullOrWhiteSpace(resultString) == false)
                     {
                         resultString += " ";
                     }
