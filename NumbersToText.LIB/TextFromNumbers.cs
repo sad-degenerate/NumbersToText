@@ -31,15 +31,16 @@
         private string CreateResultString()
         {
             var resultString = string.Empty;
-            foreach (var word in _numberInWords)
+            for (var i = 0; i < _numberInWords.Count; i++)
             {
-                if (string.IsNullOrWhiteSpace(word) == false)
+                if (string.IsNullOrWhiteSpace(_numberInWords[i]) == false)
                 {
-                    resultString += word;
-                    if (word != _numberInWords.Last())
+                    if (i != 0)
                     {
                         resultString += " ";
                     }
+
+                    resultString += _numberInWords[i];
                 }
             }
                     
@@ -70,6 +71,15 @@
 
             TensAndHoundreds(number);
 
+            if (number % 100 % 10 == 1)
+            {
+                _numberInWords[^1] = "одна";
+            }
+            else if (number % 100 % 10 == 2)
+            {
+                _numberInWords[^1] = "две";
+            }
+
             AddRank(NumbersToTextArrays.ThousandCases, (int)number % 100);
         }
 
@@ -90,7 +100,7 @@
             if (number == 0)
             {
                 return;
-            }    
+            }
 
             TensAndHoundreds(number);
 
@@ -101,7 +111,7 @@
         {
             foreach (var _case in rankCases)
             {
-                if (_case.Key.IsInRange(tens))
+                if (_case.Key.IsInRange(tens % 10))
                 {
                     _numberInWords.Add(_case.Value);
                     break;
