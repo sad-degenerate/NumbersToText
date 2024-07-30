@@ -1,4 +1,4 @@
-﻿namespace NumbersToText
+﻿namespace NumbersToText.LIB
 {
     public class NumberRange
     {

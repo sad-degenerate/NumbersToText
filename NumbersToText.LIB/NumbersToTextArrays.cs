@@ -1,4 +1,4 @@
-﻿namespace NumbersToText
+﻿namespace NumbersToText.LIB
 {
     public static class NumbersToTextArrays
     {
